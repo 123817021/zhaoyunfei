@@ -141,11 +141,11 @@
       var str = ""
       for (var i = 0; i < records.length; i++) {
         var bean = records[i]
-        //判断跟进进度，显示对应图片 1是成功营销，2是仍需跟进
+        //判断跟进进度，显示对应图片 1是成功营销，2是仍需跟进，3是尚未沟通
         if (bean.state == '2'&&true) {
           criterion="1"
         }else {
-          criterion="2"
+          criterion="3"
         }
         str+="<li class='line-item' onclick=\"detailPage('"+bean.cusId+"');\">"
             +"<a>"
@@ -165,7 +165,7 @@
             +"</i>"
       }else {
         str+="<i class='bd-img'>"
-            +"<img  src='../../image/rengxugenjin.png' style='width:80px; height:40px;'/>"
+            +"<img  src='../../image/shangweigoutong.png' style='width:80px; height:40px;'/>"
             +"</i>"
       }
         str+="<i class='icon-v-right-rg img-enter'></i>"
