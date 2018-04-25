@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+  <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+  <title>Hello APP</title>
+  <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/assets/main.css" />
+  <style>
+  .header-mix .mix-txt {
+      position:absolute;
+      top:20px;
+  }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <span class="header-mix" onclick="api.closeWin();">
+          <span class="mix-txt"><i class="header-icon icon-v-left js-back"> </i>推荐产品</span>
+      </span>
+    </div>
+</header>
+<div class="pages">
+    <section class="section">
+        <div class="nav-user">
+          <span id="userNameDesc"></span>
+          <span id="cusStarImg"></span>
+        <div class="nav-user-rg" onclick="detailPage();">
+            <i class="img-phone" style="color:red;"></i>
+        </div>
+
+        </div>
+        <div class="h15 bg-f5f"></div>
+        <h4 class="pages-tag">推荐产品：</h4>
+        <ul class="tag-list tag-list--bg" id="proContent">
+
+        </ul>
+        <div class="h15 bg-f5f"></div>
+        <h4 class="pages-tag">客户跟进情况：</h4>
+        <ul class="col-repay">
+            <li>
+                <span>上次通话时间：</span>
+                <div id="lastLogTime">无</div>
+            </li>
+            <li>
+                <span>上次通话时长：</span>
+                <div id="lastLogTimelong">无</div>
+            </li>
+            <li>
+                <span>沟通结果：</span>
+                <div id="logResult">无</div>
+            </li>
+            <li>
+                <span>继续跟进：</span>
+                <div id="logNtype">无</div>
+            </li>
+            <li>
+                <span>三个月后再联系：</span>
+                <div id="logThreemonty">无</div>
+            </li>
+            <li>
+                <span>备注  ：</span>
+                <div id="comment">无</div>
+            </li>
+        </ul>
+        <div class="h15 bg-f5f"></div>
+        <h4 class="pages-tag" onclick="editPage();" style="color:red;padding-bottom:30px"><u>客户信息</u></h4>
+    </section>
+</div>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+      var header = $api.dom('header');
+      //适配iOS 7+，Android 4.4+状态栏
+      $api.fixStatusBar(header);
+      util.globalInit();
+      initData();
+		};
+
+    var cusObj;
+    function initData() {
+      initData(true);
+    }
+    function initData(isShow) {
+      const cusId = api.pageParam.cusId
+
+      util.get("ProDetail/list",{cusId:cusId},function (json) {
+        var content = $api.byId('proContent');
+        $api.html(content,interText(json.data));
+      })
+      // 获取最后一次时间
+      util.get("CusLog/getCusLogLast/" + cusId,{},function (json) {
+        if(json.code=='200' && json.data){
+          $api.byId('logResult').innerText = json.data.logResult
+          $api.byId('logNtype').innerText = json.data.logNtype
+          $api.byId('logThreemonty').innerText = json.data.logThreemonty
+          $api.byId('comment').innerText = json.data.comment
+        }
+      });
+
+      util.get("CusDetail/"+cusId,{},function (json) {
+        cusObj = json.data
+        if(cusObj.cusName){
+          $api.byId('userNameDesc').innerText = cusObj.cusName
+        }
+        if(cusObj.lastLogTime){
+          const lastLogTime=new Date(cusObj.lastLogTime).format("yyyy-MM-dd hh:mm:ss");
+          $api.byId('lastLogTime').innerText = lastLogTime
+          const minuteNum = parseInt(cusObj.lastLogTimelong / 60)
+          const secondNum = cusObj.lastLogTimelong % 60
+          $api.byId('lastLogTimelong').innerText = (minuteNum + "分" + secondNum + "秒")
+        }
+        if(cusObj.cusStar){
+          const cusStar = cusObj.cusStar;
+          if(cusStar){
+            const star = parseInt(cusStar);
+            if(star > 2){
+              var imgHtml = "";
+              for (var i = 0; i < 6; i++) {
+                if(star >= i+1){
+                  imgHtml += "<i class='icon-sign col-ff9'></i>";
+                }else{
+                  imgHtml += "<i class='icon-sign col-eae'></i>";
+                }
+              }
+              $api.html($api.byId("cusStarImg"),imgHtml);
+            }
+          }
+        }
+        api.parseTapmode();
+      });
+
+    }
+    function editPage() {
+      if(!cusObj){
+        util.toast("网络异常");
+      }else{
+        api.openWin({
+            name: 'editCus',
+            url: '../addCus.html',
+            pageParam: {
+                cusObj: cusObj
+            }
+        });
+      }
+    }
+    function detailPage() {
+      if(!cusObj){
+        util.toast("网络异常");
+      }else{
+        if(cusObj.cusPhone != ''){
+          api.confirm({
+              title: '消息确认',
+              msg: '是否现在和客户进行通话？',
+              buttons: ['通话', '跳过']
+          }, function(ret, err) {
+              var index = ret.buttonIndex;
+              if(index == 1){
+                api.call({
+                    type: 'tel_prompt',
+                    number: cusObj.cusPhone
+                });
+              }
+              api.openWin({
+                  name: 'detail2',
+                  url: './detail2.html',
+                  pageParam: {
+                      cusObj: cusObj
+                  }
+              });
+          });
+
+        }else{
+          util.toast("电话不存在")
+        }
+      }
+    }
+
+    function interText(records) {
+      var str = ""
+      for (var i = 0; i < records.length; i++) {
+        var bean = records[i]
+        str+="<li class='tag-item'>"+bean.proName+"</li>"
+      }
+      return str
+    }
+</script>
+</html>

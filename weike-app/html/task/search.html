@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+  <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+  <title>Hello APP</title>
+  <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/assets/main.css" />
+<style>
+.header-back .js-back::after{
+    border-left: 0.167rem solid #fff;
+    border-bottom: 0.167rem solid #fff;
+}
+.search-block .search-ele-wrap {
+    background-color: #1b82d2;
+}
+</style>
+</head>
+<body>
+<header class="header">
+    <div class="search-block">
+        <div class="header-back">
+          <i class="header-icon icon-v-left js-back" onclick="api.closeWin();"></i>
+          <div class="search-ele-wrap search-pa-lf">
+              <input id="search" class="search-text" onchange="searchChange();" placeholder="请输入关键词">
+              <i class="icon-search  icon-search-lf se-bt"></i>
+             <i class="icon-close top20 se-bt" onclick="cleanInput();"></i>
+          </div>
+        </div>
+
+    </div>
+</header>
+<div class="pages">
+    <section class="section mgt20">
+        <ul id="listData" class="line-list line-list--indent line-list--after-v">
+
+        </ul>
+    </section>
+</div>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+
+
+		};
+    var searchVal = ""
+    function searchChange() {
+      var search = $api.byId('search');
+      if (searchVal != search.value) {
+        searchVal = search.value
+        loadData()
+      }
+
+    }
+
+    function loadData() {
+      var params = {
+        pageSize: cfg.pageSize,
+        pageNum: 1,
+        cusName: searchVal,
+        cusPhone: searchVal,
+        type: 5
+      }
+      util.get("CusDetail/list",params,function (json) {
+        var content = $api.byId('listData');
+        api.refreshHeaderLoadDone();
+        if(json.data.total > 0){
+          const records = json.data.records
+          $api.html(content,interText(records));
+          api.parseTapmode();
+        }else{
+          util.toast('没有查询到数据');
+        }
+      });
+    }
+    function detailPage(cusId) {
+      api.openWin({
+          name: 'detail',
+          url: './detail.html',
+          pageParam: {
+              cusId: cusId
+          }
+      });
+    }
+    function interText(records) {
+      var str = ""
+      for (var i = 0; i < records.length; i++) {
+        var bean = records[i]
+        str+="<li class='line-item' onclick=\"detailPage('"+bean.cusId+"');\">"
+            +"<a>"
+            +"<div class='item-bd'>"
+        if (bean.state == '2') {
+          str += "<i class='icon-yiwancheng icon-dong'></i>"
+        }
+        str+="<h3 class='bd-tt'>"+bean.cusName+"</h3>"
+            +"<p class='bd-txt'>"+bean.cusPhone+"</p>"
+            +"</div>"
+            +"<i class='icon-v-right-rg icon-icon-right'></i>"
+            +"</a></li>"
+      }
+      return str
+    }
+    function cleanInput() {
+      $api.val($api.byId("search"), '');
+    }
+</script>
+</html>

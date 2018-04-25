@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/assets/main.css" />
+	<style>
+    .pages{
+      padding-top:0px;
+    }
+	</style>
+</head>
+<body>
+
+  <div class="pages">
+  <section class="section">
+      <div class="search-block">
+          <div class="search-ele-wrap" onclick="searchPage()">
+              <input type="search" readonly tapmode="hover" class="search-text" placeholder="请输入关键词" />
+              <i class="icon-search"></i>
+          </div>
+      </div>
+      <ul class="tool-bar fs12 tool-box">
+          <li onclick="changeType('1');" id="dataState1" name="dataState" class="active">
+              <i class="tool-icon-io img-thjl col-6fd" style="font-size:25px;"></i>
+              <span class="tool-do">已沟通<span id="endCusCount"></span</span>
+          </li>
+          <li onclick="changeType('3');" id="dataState3" name="dataState">
+              <i class="tool-icon-io img-task col-f9a"></i>
+              <span class="tool-do">今日分配<span id="todayCusCount"></span</span>
+          </li>
+      </ul>
+      <div class="h15 bg-f5f"></div>
+      <ul id="listData" class="line-list line-list--indent line-list--after-v">
+
+      </ul>
+  </section>
+  </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript">
+    var pageNum = 1;  //当前是第几页
+    var type = '1';
+
+    apiready = function(){
+      // util.rmPrefs(cfg.tockenIdKEY)
+      initData();
+      //下拉刷新
+      api.setRefreshHeaderInfo({
+          visible: true,
+          bgColor: 'rgba(0,0,0,0)',
+          textColor: '#666',
+          textDown: '下拉刷新',
+          textUp: '释放刷新'
+      }, function(ret, err){
+        initData();
+        api.refreshHeaderLoadDone();
+      });
+      //加载更多
+      api.addEventListener({name: 'scrolltobottom'}, function(ret, err){
+        loadData(true);
+      });
+      //全局初始化
+      util.globalInit();
+		};
+
+    function initData() {
+      initData(true);
+    }
+    function initData(isShow) {
+      pageNum = 1;
+      util.get("CusDetail/count?t="+new Date(),{},function (json) {
+        $api.byId('endCusCount').innerHTML='('+json.data.endCusCount+')';
+        $api.byId('todayCusCount').innerHTML='('+json.data.todayCusCount+')';
+      });
+      loadData(isShow);
+    }
+    function changeType(type) {
+      this.type = type;
+      pageNum = 1;
+      $api.removeCls($api.dom(".active[name=dataState]"),"active");
+      $api.addCls($api.byId('dataState'+type),"active");
+      loadData(true);
+    }
+    function loadData(isShow) {
+      if(pageNum != -1){
+        var content = $api.byId('listData');
+        if (pageNum == 1) {
+          $api.html(content, "");
+        }
+        var params = {
+          pageSize: cfg.pageSize,
+          pageNum: pageNum,
+          type: type
+        }
+        util.get("CusDetail/list",params,function (json) {
+          if(json.data.total > 0){
+            const records = json.data.records
+            $api.append(content,interText(records));
+          }else{
+            if(isShow){
+              util.toast('没有数据');
+            }
+          }
+          api.parseTapmode();
+          if (pageNum+1 > json.data.pages) {
+            pageNum = -1
+          }else{
+            pageNum = pageNum + 1
+          }
+        })
+      }
+
+    }
+    function detailPage(cusId) {
+      api.openWin({
+          name: 'detail',
+          url: '../task/detail.html',
+          pageParam: {
+              cusId: cusId
+          }
+      });
+    }
+    function searchPage() {
+      api.openWin({
+          name: 'search',
+          url: './search.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
+
+    function interText(records) {
+      var str = ""
+      for (var i = 0; i < records.length; i++) {
+        var bean = records[i]
+        str+="<li class='line-item' onclick=\"detailPage('"+bean.cusId+"');\">"
+            +"<a>"
+            +"<div class='item-bd'>"
+        if (bean.state == '2') {
+          str += "<i class='img-success icon-dong'></i>"
+        }else{
+          str += "<i class='img-success icon-dong-def'></i>"
+        }
+        bean.cusPhone = (bean.cusPhone == '' || bean.cusPhone == null || bean.cusPhone == undefined ? "无手机号" : bean.cusPhone)
+        str+="<h3 class='bd-tt'>"+bean.cusName+" </h3>"
+            +"<p class='bd-txt'>"+bean.cusPhone+"</p>"
+            +"</div>"
+            +"<i class='icon-v-right-rg img-enter'></i>"
+            +"</a></li>"
+      }
+      return str
+    }
+
+</script>
+</html>

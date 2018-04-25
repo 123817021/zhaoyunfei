@@ -1,0 +1,603 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+  <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+  <title>Hello APP</title>
+  <link rel="stylesheet" type="text/css" href="../css/api.css" />
+  <link rel="stylesheet" type="text/css" href="../css/assets/main.css" />
+  <style>
+  .pages{
+    padding-top:0px;
+  }
+  .item-title{
+    font-size: 14px;
+    width: 140px;
+    text-align: right;
+  }
+  .f-text{
+    font-size: 13px;
+  }
+  .f-select{
+    margin-left: 50px;
+    font-size: 13px;
+  }
+  .not-null{
+    color: red;
+  }
+  .f-select-option{
+    font-size: 5px;
+  }
+  .header-mix .mix-txt {
+      position:absolute;
+      top:20px;
+  }
+
+  </style>
+</head>
+<body>
+<header class="header" style="display: none;" id="editHeader">
+    <div class="header-left">
+      <span class="header-mix" onclick="api.closeWin();">
+          <span class="mix-txt"><i class="header-icon icon-v-left js-back"> </i>客户信息</span>
+      </span>
+    </div>
+</header>
+<div class="pages" id="editPages">
+    <section class="section">
+        <div class="h15 bg-f5f"></div>
+        <form class="ui-form">
+            <div class="form-item">
+              <div class="item-title not-null">客户姓名</div>
+                <div class="item-field">
+                    <input type="text" id="cusName" maxlength="20" value="" class="f-text f-text--lf-icon"
+                      placeholder="请输入中文">
+                </div>
+            </div>
+
+            <div class="form-item">
+              <div class="item-title">客户编号</div>
+                <div class="item-field">
+                    <input type="text" id="cusNo" maxlength="20" value="" class="f-text f-text--lf-icon"
+                      placeholder="">
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">客户星级</div>
+                <div class="item-field">
+                    <input type="text" id="cusStar" disabled maxlength="20" value="" class="f-text f-text--lf-icon"
+                      placeholder="">
+                </div>
+            </div>
+
+            <div class="form-item">
+              <div class="item-title">证件类型</div>
+                <div class="item-field">
+                  <select id="cusCarntype" class="f-select"></select>
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">证件号码</div>
+                <div class="item-field">
+                    <input type="text" id="cusCard" maxlength="18" value="" class="f-text f-text--lf-icon"
+                      placeholder="">
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">出生日期</div>
+                <div class="item-field">
+                    <input type="Date" id="cusBirthday" maxlength="30" value="" class="f-text f-text--lf-icon"
+                      placeholder="">
+                </div>
+            </div>
+
+            <div class="form-item">
+              <div class="item-title">性别</div>
+                <div class="item-field">
+                  <select id="cusSex" class="f-select"></select>
+
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">国籍</div>
+                <div class="item-field">
+                    <input type="text" id="cusCountry" maxlength="30" value="" class="f-text f-text--lf-icon"
+                      placeholder="">
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">籍贯</div>
+                <div class="item-field">
+                    <input type="text" id="cusPlace" value="" maxlength="50" class="f-text f-text--lf-icon"
+                      placeholder="">
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">民族</div>
+                <div class="item-field">
+                    <input type="text" id="cusNation" value="" maxlength="20" class="f-text f-text--lf-icon"
+                      placeholder="">
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">最高学历</div>
+                <div class="item-field">
+                    <select id="cusEducation" class="f-select"></select>
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">家庭住址</div>
+                <div class="item-field">
+                    <input type="text" id="cusAddress" value=""  maxlength="200" class="f-text f-text--lf-icon"
+                      placeholder="">
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">联系方式</div>
+                <div class="item-field">
+                    <input type="text" id="cusPhone" value="" maxlength="11" class="f-text f-text--lf-icon"
+                      placeholder="请输入手机号">
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">婚姻状况</div>
+                <div class="item-field">
+                  <select id="cusMarry" class="f-select"></select>
+
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">家庭人口数量</div>
+                <div class="item-field">
+                    <input type="text" id="cusFamilynum" value="" maxlength="2" class="f-text f-text--lf-icon"
+                      placeholder="">
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">子女数量</div>
+                <div class="item-field">
+                    <input type="text" id="cusChildnum" value=""  maxlength="1" class="f-text f-text--lf-icon"
+                      placeholder="">
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">工作单位</div>
+                <div class="item-field">
+                    <input type="text" id="cusOrg" maxlength="200" value="" class="f-text f-text--lf-icon"
+                      placeholder="">
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">所属行业</div>
+                <div class="item-field">
+                    <input type="text" id="cusOrgntype" maxlength="50" value="" class="f-text f-text--lf-icon"
+                      placeholder="">
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">职业</div>
+                <div class="item-field">
+                  <select id="cusJobNtype" class="f-select"></select>
+
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">职务</div>
+                <div class="item-field">
+                    <input type="text" id="cusJob" value="" maxlength="20" class="f-text f-text--lf-icon"
+                      placeholder="">
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">客户性格</div>
+                <div class="item-field">
+                    <input type="text" id="cusCharacter" value=""  maxlength="20" class="f-text f-text--lf-icon"
+                      placeholder="">
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">客户爱好</div>
+                <div class="item-field">
+                    <input type="text" id="cusHobby" value="" maxlength="20" class="f-text f-text--lf-icon"
+                      placeholder="">
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">年龄段</div>
+                <div class="item-field">
+                  <select id="cusAgeNtype" class="f-select"></select>
+
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">活期储蓄(万元)</div>
+                <div class="item-field">
+                    <input type="text" id="cusCurrentdeposit" maxlength="20" value="" class="f-text f-text--lf-icon"
+                      placeholder="">
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">定期储蓄(万元)</div>
+                <div class="item-field">
+                    <input type="text" id="cusRegularsavings" maxlength="20" value="" class="f-text f-text--lf-icon"
+                      placeholder="">
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">账号余额(万元)</div>
+                <div class="item-field">
+                    <input type="text" id="cusTotalmoney" disabled="disabled" maxlength="10" value="" class="f-text f-text--lf-icon"
+                      placeholder="">
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title not-null">资产状况</div>
+                <div class="item-field">
+                  <select id="cusAssetsNtype" class="f-select"></select>
+
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">在我行有无贷款</div>
+                <div class="item-field">
+                  <select id="cusIsLoad" onchange="cusIsLoadChange()" class="f-select"></select>
+
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">在我行贷款数额(万元)</div>
+                <div class="item-field">
+                    <input type="text" id="cusLoan" disabled="disabled" value="" maxlength="20" class="f-text f-text--lf-icon"
+                      placeholder="">
+                </div>
+            </div>
+
+            <div class="form-item">
+              <div class="item-title">业务描述</div>
+                <div class="item-field">
+                  <input type="text" id="cusRemark" value="" maxlength="200" class="f-text f-text--lf-icon"
+                    placeholder="">
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title not-null">来源方式</div>
+                <div class="item-field">
+                  <select id="cusSource" class="f-select"></select>
+
+                </div>
+            </div>
+            <div class="form-item">
+              <div class="item-title">维护日期</div>
+                <div class="item-field">
+                    <input id="updateTime" value="" disabled="disabled" maxlength="30" class="f-text f-text--lf-icon"
+                      placeholder="">
+                </div>
+            </div>
+
+        </form>
+        <div class="login-box">
+        <a class="login" onclick="cusMethod.save();">保存</a>
+        </div>
+    </section>
+</div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/config.js"></script>
+<script type="text/javascript" src="../script/util.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+      cusMethod.init();
+		};
+
+    const cusMethod = {
+      // 对象
+      data: {
+        // 是否是新增 ？ true 新增 : false 修改
+        isAdd: true,
+        // 修改页面 cusObj 为 修改对象 新增页面 此对象为空
+        cusObj: {},
+      },
+      // 初始化
+      init : function() {
+        util.get("SysDictionary/getMapAll",{},function (json) {
+          dictCache = json.data;
+          cusMethod.initDic(dictCache);
+          // 判断修改对象是否存在 如果存在 则更改全局对象 和 isAdd 为修改
+          var cusObj = api.pageParam.cusObj;
+          // 如果存在 初始化修改方法
+          if(cusObj) {
+            var header = $api.dom('header');
+            //适配iOS 7+，Android 4.4+状态栏
+            $api.fixStatusBar(header);
+            cusMethod.data.cusObj = cusObj;
+            cusMethod.data.isAdd = false;
+            if(cusMethod.data.cusObj.updateTime == ''){
+              $api.val($api.byId("updateTime"),new Date().format('yyyy-MM-dd'));
+            }
+            $api.css($api.byId("editHeader"),"display:block");
+            $api.css($api.byId("editPages"),"padding-top:5rem");
+
+            cusMethod.initEditPage(cusMethod.data.cusObj);
+          }
+          if (cusMethod.data.isAdd) {
+            $api.val($api.byId("updateTime"),new Date().format('yyyy-MM-dd'));
+          }
+          cusIsLoadChange();
+          api.parseTapmode();
+        });
+      },
+      // 初始化修改页面对象
+      initEditPage: function(cusObj) {
+        $api.val($api.byId("cusName"), cusObj.cusName);
+        $api.val($api.byId("cusNation"), cusObj.cusNation);
+        if (cusObj.cusEducation) {
+          // $api.attr($api.byId('cusEducation'+cusObj.cusEducation), 'selected', 'selected');
+          document.getElementById('cusEducation'+cusObj.cusEducation).selected = true
+        }
+        $api.val($api.byId("cusStar"), cusObj.cusStar);
+        $api.val($api.byId("cusPlace"), cusObj.cusPlace);
+        if (cusObj.cusCarntype) {
+          // $api.attr($api.byId('cusCarntype'+cusObj.cusCarntype), 'selected', 'selected');
+          document.getElementById('cusCarntype'+cusObj.cusCarntype).selected = true
+        }
+        $api.val($api.byId("cusNo"), cusObj.cusNo);
+        $api.val($api.byId("cusOrg"), cusObj.cusOrg);
+        if (cusObj.cusMarry) {
+          // $api.attr($api.byId('cusMarry'+cusObj.cusMarry), 'selected', 'selected');
+          document.getElementById('cusMarry'+cusObj.cusMarry).selected = true
+        }
+        $api.val($api.byId("cusOrgntype"), cusObj.cusOrgntype);
+        $api.val($api.byId("cusFamilynum"), cusObj.cusFamilynum);
+        $api.val($api.byId("cusCard"), cusObj.cusCard);
+        if (cusObj.cusJobNtype) {
+          // $api.attr($api.byId('cusJobNtype'+cusObj.cusJobNtype), 'selected', 'selected');
+          document.getElementById('cusJobNtype'+cusObj.cusJobNtype).selected = true
+        }
+        $api.val($api.byId("cusChildnum"), cusObj.cusChildnum);
+        if (cusObj.cusSex) {
+          // $api.attr($api.byId('cusSex'+cusObj.cusSex), 'selected', 'selected');
+          document.getElementById('cusSex'+cusObj.cusSex).selected = true
+        }
+        $api.val($api.byId("cusJob"), cusObj.cusJob);
+        $api.val($api.byId("cusHobby"), cusObj.cusHobby);
+        $api.val($api.byId("cusBirthday"), cusObj.cusBirthday);
+        $api.val($api.byId("cusCurrentdeposit"), cusObj.cusCurrentdeposit);
+        $api.val($api.byId("cusCharacter"), cusObj.cusCharacter);
+        if (cusObj.cusAgeNtype) {
+          // $api.attr($api.byId('cusAgeNtype'+cusObj.cusAgeNtype), 'selected', 'selected');
+          document.getElementById('cusAgeNtype'+cusObj.cusAgeNtype).selected = true
+        }
+        $api.val($api.byId("cusRegularsavings"), cusObj.cusRegularsavings);
+        $api.val($api.byId("cusAddress"), cusObj.cusAddress);
+        $api.val($api.byId("cusLoan"), cusObj.cusLoan);
+        $api.val($api.byId("cusCountry"), cusObj.cusCountry);
+        $api.val($api.byId("cusRemark"), cusObj.cusRemark);
+        if (cusObj.cusSource) {
+          // $api.attr($api.byId('cusSource'+cusObj.cusSource), 'selected', 'selected');
+          document.getElementById('cusSource'+cusObj.cusSource).selected = true
+        }
+        $api.val($api.byId("cusTotalmoney"), cusObj.cusTotalmoney);
+        $api.val($api.byId("cusPhone"), cusObj.cusPhone);
+        $api.val($api.byId("updateTime"),new Date(cusObj.updateTime).format('yyyy-MM-dd'));
+        if (cusObj.cusIsLoad) {
+          // $api.attr($api.byId('cusIsLoad'+cusObj.cusIsLoad), 'selected', 'selected');
+          document.getElementById('cusIsLoad'+cusObj.cusIsLoad).selected = true
+        }
+        if (cusObj.cusAssetsNtype) {
+          // $api.attr($api.byId('cusAssetsNtype'+cusObj.cusAssetsNtype), 'selected', 'selected');
+          document.getElementById('cusAssetsNtype'+cusObj.cusAssetsNtype).selected = true
+        }
+      },
+      // 初始化字典
+      initDic: function(dictCache) {
+        // 学历
+        cusMethod.toOption(dictCache.CUS_EDUCATION,"cusEducation");
+        // 证件类型
+        cusMethod.toOptionCardNtype(dictCache.CARD_TYPE,"cusCarntype");
+        //婚姻状况
+        cusMethod.toOption(dictCache.CUS_MARRY,"cusMarry");
+        // 职业
+        cusMethod.toOption(dictCache.JOB_TYPE,"cusJobNtype");
+        //性别
+        cusMethod.toOption(dictCache.SEX,"cusSex");
+        //年龄段
+        cusMethod.toOption(dictCache.AGE_TYPE,"cusAgeNtype");
+        //来源方式
+        cusMethod.toOption(dictCache.SOURCE_METHOD,"cusSource");
+        //我行办理的贷款产品
+        cusMethod.toOption(dictCache.ISHAVE,"cusIsLoad");
+        //资产规模
+        cusMethod.toOption(dictCache.ASSETS_TYPE,"cusAssetsNtype");
+      },
+      // 初始化页面
+      initPage: function(){
+        $api.val($api.byId("cusName"),"");
+        $api.val($api.byId("cusNation"),"");
+        $api.val($api.byId("cusStar"),"");
+        $api.val($api.byId("cusPlace"),"");
+        $api.val($api.byId("cusNo"),"");
+        $api.val($api.byId("cusOrg"),"");
+        $api.val($api.byId("cusOrgntype"),"");
+        $api.val($api.byId("cusFamilynum"),"");
+        $api.val($api.byId("cusCard"),"");
+        $api.val($api.byId("cusChildnum"),"");
+        $api.val($api.byId("cusJob"),"");
+        $api.val($api.byId("cusHobby"),"");
+        $api.val($api.byId("cusBirthday"),"");
+        $api.val($api.byId("cusCurrentdeposit"),"");
+        $api.val($api.byId("cusCharacter"),"");
+        $api.val($api.byId("cusRegularsavings"),"");
+        $api.val($api.byId("cusAddress"),"");
+        $api.val($api.byId("cusLoan"),"");
+        $api.val($api.byId("cusCountry"),"");
+        $api.val($api.byId("cusTotalmoney"),"");
+        $api.val($api.byId("cusPhone"),"");
+        $api.val($api.byId("cusRemark"),"");
+
+        $api.attr($api.byId('cusCarntype1'), 'selected', 'selected');
+
+        $api.attr($api.byId('cusMarryNONE'), 'selected', 'selected');
+        $api.attr($api.byId('cusJobNtypeNONE'), 'selected', 'selected');
+        $api.attr($api.byId('cusSexNONE'), 'selected', 'selected');
+        $api.attr($api.byId('cusAgeNtypeNONE'), 'selected', 'selected');
+        $api.attr($api.byId('cusSourceNONE'), 'selected', 'selected');
+        $api.attr($api.byId('cusIsLoadNONE'), 'selected', 'selected');
+        $api.attr($api.byId('cusAssetsNtypeNONE'), 'selected', 'selected');
+        $api.attr($api.byId('cusEducationNONE'), 'selected', 'selected');
+
+
+        $api.val($api.byId("updateTime"),new Date().format('yyyy-MM-dd'));
+        api.parseTapmode();
+      },
+      initHtmlOption : function(){
+        $api.html($api.byId('cusEducation'), '');
+        $api.html($api.byId('cusCarntype'), '');
+        $api.html($api.byId('cusMarry'), '');
+        $api.html($api.byId('cusJobNtype'), '');
+        $api.html($api.byId('cusSex'), '');
+        $api.html($api.byId('cusAgeNtype'), '');
+        $api.html($api.byId('cusSource'), '');
+        $api.html($api.byId('cusIsLoad'), '');
+        $api.html($api.byId('cusAssetsNtype'), '');
+        util.get("SysDictionary/getMapAll",{},function (json) {
+          dictCache = json.data;
+          cusMethod.initDic(dictCache);
+          cusMethod.initPage();
+        });
+      },
+      // 初始化option
+      toOption: function(json, appendId){
+        var optHtml = "<option id='"+appendId+"NONE' value=''>请选择</option>";
+        if(json){
+          for (var i = 0; i < json.length; i++) {
+            var one = json[i];
+            optHtml += "<option id='"+appendId + one.dicCode +"' class='f-select-option' value='"+one.dicCode+"'>"+one.dicName+"</option>";
+          }
+        }
+        $api.html($api.byId(appendId), optHtml);
+      },
+      // 初始化option
+      toOptionCardNtype: function(json, appendId){
+        var optHtml = "";
+        if(json){
+          for (var i = 0; i < json.length; i++) {
+            var one = json[i];
+            optHtml += "<option id='"+appendId + one.dicCode +"' class='f-select-option' value='"+one.dicCode+"'";
+            if (one.dicCode == '1'){
+              optHtml += " selected = 'selected'";
+            }
+            optHtml += ">";
+            optHtml += one.dicName;
+            optHtml += "</option>";
+          }
+        }
+        $api.html($api.byId(appendId), optHtml);
+      },
+      // 保存信息
+      save: function(){
+        var param = {
+          cusName: $api.val($api.byId("cusName")),
+          cusNation: $api.val($api.byId("cusNation")),
+          cusEducation: $api.val($api.byId("cusEducation")),
+          cusStar: $api.val($api.byId("cusStar")),
+          cusPlace: $api.val($api.byId("cusPlace")),
+          cusCarntype: $api.val($api.byId("cusCarntype")),
+          cusNo: $api.val($api.byId("cusNo")),
+          cusOrg: $api.val($api.byId("cusOrg")),
+          cusMarry: $api.val($api.byId("cusMarry")),
+          cusOrgntype: $api.val($api.byId("cusOrgntype")),
+          cusFamilynum: $api.val($api.byId("cusFamilynum")),
+          cusCard: $api.val($api.byId("cusCard")),
+          cusJobNtype: $api.val($api.byId("cusJobNtype")),
+          cusChildnum: $api.val($api.byId("cusChildnum")),
+          cusSex: $api.val($api.byId("cusSex")),
+          cusJob: $api.val($api.byId("cusJob")),
+          cusHobby: $api.val($api.byId("cusHobby")),
+          cusBirthday: $api.val($api.byId("cusBirthday")),
+          cusCurrentdeposit: $api.val($api.byId("cusCurrentdeposit")),
+          cusCharacter: $api.val($api.byId("cusCharacter")),
+          cusAgeNtype: $api.val($api.byId("cusAgeNtype")),
+          cusRegularsavings: $api.val($api.byId("cusRegularsavings")),
+          cusAddress: $api.val($api.byId("cusAddress")),
+          cusLoan: $api.val($api.byId("cusLoan")),
+          cusCountry: $api.val($api.byId("cusCountry")),
+          cusSource: $api.val($api.byId("cusSource")),
+          cusRemark: $api.val($api.byId("cusRemark")),
+          cusTotalmoney: $api.val($api.byId("cusTotalmoney")),
+          cusPhone: $api.val($api.byId("cusPhone")),
+          cusIsLoad: $api.val($api.byId("cusIsLoad")),
+          cusAssetsNtype: $api.val($api.byId("cusAssetsNtype"))
+        };
+        const reg = {
+          // 正整数
+          num: /^[1-9]\d*$/,
+          // 带小数点的整数
+          float: /^\d+$|^\d+\.\d+$/,
+          // 身份证
+          card: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
+          // 手机号
+          mobile: /^1[3|4|5|7|8][0-9]\d{4,8}$/
+        }
+        if(param.cusName == ""){
+          util.toast("客户名称不能为空");
+        }else if(param.cusCarntype == "1" && param.cusCard != "" && !reg.card.test(param.cusCard)){
+          util.toast("身份证号填写不正确");
+        }else if(param.cusPhone != "" && !reg.mobile.test(param.cusPhone)){
+          util.toast("不是完整的11位手机号或者正确的手机号前七位");
+        }else if(param.cusFamilynum != "" && !reg.num.test(param.cusFamilynum)){
+          util.toast("家庭人口数量只能填写正整数");
+        }else if(param.cusChildnum != "" && !reg.num.test(param.cusChildnum)){
+          util.toast("子女数量只能填写正整数");
+        }else if(param.cusChildnum != "" && (param.cusFamilynum == "" || param.cusChildnum > param.cusFamilynum)){
+          util.toast("子女数量不能大于家庭人口数量");
+        }else if(param.cusCurrentdeposit != "" && !reg.float.test(param.cusCurrentdeposit)){
+          util.toast("活期储蓄只能填写数字");
+        }else if(param.cusRegularsavings != "" && !reg.float.test(param.cusRegularsavings)){
+          util.toast("定期储蓄只能填写数字");
+        }else if(param.cusTotalmoney != "" && !reg.float.test(param.cusTotalmoney)){
+          util.toast("账户余额只能填写数字");
+        }else if(param.cusAssetsNtype == ""){
+          util.toast("资产状况不能为空");
+        }else if(param.cusLoan != "" && !reg.float.test(param.cusLoan)){
+          util.toast("贷款数额只能填写数字");
+        }else if(param.cusSource == ""){
+          util.toast("来源方式不能为空");
+        }else{
+          if (cusMethod.data.isAdd) {
+            util.post("CusDetail/add",param,function (json) {
+              util.toast("客户新增成功！");
+              cusMethod.initHtmlOption();
+              // 更新其它页面中的数据
+              util.refresh();
+            })
+          } else {
+            param.cusId = cusMethod.data.cusObj.cusId
+            util.post("CusDetail/edit",param,function (json) {
+              util.toast("客户修改成功！");
+              // 更新其它页面中的数据
+              util.refresh();
+            })
+          }
+        }
+      }
+    }
+
+    function cusIsLoadChange() {
+      var cusIsLoadDOM = $api.byId("cusIsLoad");
+      var cusIsLoad = "";
+      if(cusIsLoadDOM){
+        cusIsLoad = $api.val(cusIsLoadDOM)
+      }
+
+      if(cusIsLoad=='1'){
+        $api.removeAttr($api.byId('cusLoan'),"disabled");
+      }else{
+        $api.val($api.byId('cusLoan'),"");
+        $api.attr($api.byId('cusLoan'),"disabled",true);
+      }
+      api.parseTapmode();
+    }
+</script>
+</html>

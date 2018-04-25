@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+  <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+  <title>Hello APP</title>
+  <link rel="stylesheet" type="text/css" href="../css/api.css" />
+  <link rel="stylesheet" type="text/css" href="../css/assets/main.css" />
+  <style>
+
+  </style>
+</head>
+<body>
+<div class="login-pages">
+    <section class="section">
+        <form class="login-ui-form">
+            <div class="login-head">
+                <img src="../image/logo.png" alt="" />
+            </div>
+            <div class="login-form-item">
+                <i class="icon-username2 lg-icon-users"></i>
+                <input type="text" id="username" class="f-text login-f-text--lf-icon"
+                   value="" placeholder="请输入用户名" />
+            </div>
+            <div class="login-form-item">
+                <i class="icon-password lg-icon-users"></i>
+                <label class="login-item-label"></label>
+                <input type="password" id="password" class="f-text login-f-text--lf-icon"
+                   value="" placeholder="请输入密码" />
+            </div>
+            <!--<p class="login-form-item-er">用户名或密码错误</p>-->
+        </form>
+        <div class="login-box">
+            <a class="login btn-lg" onclick="login();">登录</a>
+        </div>
+    </section>
+</div>
+
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/config.js"></script>
+<script type="text/javascript" src="../script/util.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+      util.backHomeListener();
+      api.addEventListener({
+          name: 'keyback'
+      }, function(ret, err) {
+        //当用户点手机的返回键时触发方法
+        return false;
+      });
+
+		};
+    function login() {
+      var params = {
+        username: $api.val($api.byId('username')),
+        password: $api.val($api.byId('password'))
+      }
+      if (params.username == "") {
+        util.toast("用户名不为空");
+      }else if (params.password == "") {
+        util.toast("密码不为空");
+      }else {
+        util.post("SysUser/login",params,function (json) {
+          util.setPrefs(cfg.userCacheKEY,json.data);
+          util.backHome();
+        });
+      }
+    }
+</script>
+
+</html>
