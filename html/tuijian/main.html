@@ -143,9 +143,9 @@
         var bean = records[i]
         //判断跟进进度，显示对应图片 1是成功营销，2是仍需跟进，3是尚未沟通
         if (bean.state == '2'&&true) {
-          criterion="1"
-        }else {
           criterion="3"
+        }else {
+          criterion="1"
         }
         str+="<li class='line-item' onclick=\"detailPage('"+bean.cusId+"');\">"
             +"<a>"
