@@ -144,8 +144,11 @@
         //判断跟进进度，显示对应图片 1是成功营销，2是仍需跟进，3是尚未沟通
         if (bean.state == '2'&&true) {
           criterion="1"
-        }else {
+          //随便写的判断
+        }else if(bean.cusPhone=="") {
           criterion="3"
+        }else {
+          criterion="2"
         }
         str+="<li class='line-item' onclick=\"detailPage('"+bean.cusId+"');\">"
             +"<a>"
@@ -163,9 +166,13 @@
         str+="<i class='bd-img'>"
             +"<img  src='../../image/chenggong2.png' style='width:80px; height:40px;'/>"
             +"</i>"
-      }else {
+      }else if(criterion=="3"){
         str+="<i class='bd-img'>"
             +"<img  src='../../image/shangweigoutong.png' style='width:80px; height:40px;'/>"
+            +"</i>"
+      }else {
+        str+="<i class='bd-img'>"
+            +"<img  src='../../image/rengxugenjin.png' style='width:80px; height:40px;'/>"
             +"</i>"
       }
         str+="<i class='icon-v-right-rg img-enter'></i>"
