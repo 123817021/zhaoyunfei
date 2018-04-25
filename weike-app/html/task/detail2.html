@@ -227,7 +227,9 @@
     }
 
     function androidPhone() {
+
       var callRecord = api.require('callRecord');
+
       callRecord.openCallRecord(function(ret) {
         if(ret.status){
           const callR = ret.CallRecord

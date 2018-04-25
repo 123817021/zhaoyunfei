@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html class="bgGray">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/assets/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/assets/iconfont.css"/>
+	<style>
+  .header-mix .mix-txt {
+      position:absolute;
+      top:20px;
+  }
+  .newdate{
+    margin-top: 20px;
+    width: auto;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+  }
+  .nedate{
+    display: block;
+    font-size: 20px;
+    color: #000;
+  }
+  </style>
+</head>
+<body class="bgGray">
+  <header class="header">
+    <div class="header-left">
+      <span class="header-mix" onclick="api.closeWin();">
+          <span class="mix-txt"><i class="header-icon icon-v-left js-back"> </i>签到历史</span>
+      </span>
+    </div>
+
+  </header>
+ <div class="pages">
+    <section class="section">
+      <div class='newdate'>
+        <span class="nedate" id="ndate"></span>
+      </div>
+    </section>
+</div>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript">
+  apiready = function(){
+    //显示现在的年和月
+    var year=new Date().format('yyyy');
+    var math=new Date().format('MM');
+    $api.text($api.byId("ndate"),year+"年"+math+"月");
+    //执行获取签到表
+    getqiandaobiao();
+    // getsigndate();
+  }
+  function getqiandaobiao(){
+    //定义这个模块
+    var UICalendar = api.require('UICalendar');
+UICalendar.open({
+  //是否可以多选日期
+  multipleSelect:false,
+  //模块的位置及尺寸
+    rect: {
+        x: 30,
+        y: 100,
+        w: api.frameWidth - 60,
+        h: 340
+    },
+    //模块各部分的样式
+    styles: {
+        //日历整体背景
+        bg: 'rgba(0,0,0,0)',
+        //星期的样式
+        week: {
+            //平日文字的颜色
+            weekdayColor: '#3b3b3b',
+            //周末文字的颜色
+            weekendColor: '#a8d400',
+            //星期文字的大小
+            size: 12
+        },
+        //普通日期的样式
+        date: {
+          //普通日期文字的颜色
+            color: '#3b3b3b',
+            //普通日期选中后的文字颜色(这个地方功能取消不掉，不设置会有默认值，必须设置)
+            selectedColor: '#000',
+            //普通日期选中后的背景(都是取消不掉的功能，不设置还有默认值)
+            selectedBg: '#ffffff',
+            //普通日期文字的大小
+            size: 12
+        },
+        //设置当前日期的样式
+        today: {
+          //当前日期的文字颜色
+            color: 'rgb(230,46,37)',
+            //当前日期的背景(设置为空)
+            bg: ''
+        },
+        //设置特殊日期通用样式
+        specialDate: {
+          //文字颜色
+            color: '#a8d500',
+            bg: 'widget://image/quan.png'
+            // //背景样式
+            // bg: 'widget://image/a.png'
+        }
+    },
+    //需要标记的特殊日期数组(这个不用设置)
+    specialDate: [{
+      date: '2018-04-07'
+    },{
+        date: '2018-04-08'
+    },{
+        date: '2018-04-09'
+    },{
+        date: '2018-04-13'
+    }],
+    //月份的切换方式
+    switchMode: 'none',
+    //模块视图添加到指定 frame 的名字
+    fixedOn: api.frameName,
+    //模块是否随所属 window 或 frame 滚动
+    fixed: true
+});
+  }
+
+  </script>
+  </html>

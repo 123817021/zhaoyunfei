@@ -78,7 +78,7 @@
                 </div>
             </div>
             <div class="form-item">
-              <div class="item-title">证件号码</div>
+              <div class="item-title not-null">证件号码</div>
                 <div class="item-field">
                     <input type="text" id="cusCard" maxlength="18" value="" class="f-text f-text--lf-icon"
                       placeholder="">
@@ -542,6 +542,8 @@
         }
         if(param.cusName == ""){
           util.toast("客户名称不能为空");
+        }else if(param.cusCard == ""){
+          util.toast("证件号码不能为空");
         }else if(param.cusCarntype == "1" && param.cusCard != "" && !reg.card.test(param.cusCard)){
           util.toast("身份证号填写不正确");
         }else if(param.cusPhone != "" && !reg.mobile.test(param.cusPhone)){

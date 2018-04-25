@@ -137,9 +137,16 @@
     }
 
     function interText(records) {
+      var criterion = ""
       var str = ""
       for (var i = 0; i < records.length; i++) {
         var bean = records[i]
+        //判断跟进进度，显示对应图片 1是成功营销，2是仍需跟进
+        if (bean.state == '2'&&true) {
+          criterion="1"
+        }else {
+          criterion="2"
+        }
         str+="<li class='line-item' onclick=\"detailPage('"+bean.cusId+"');\">"
             +"<a>"
             +"<div class='item-bd'>"
@@ -152,7 +159,16 @@
         str+="<h3 class='bd-tt'>"+bean.cusName+" </h3>"
             +"<p class='bd-txt'>"+bean.cusPhone+"</p>"
             +"</div>"
-            +"<i class='icon-v-right-rg img-enter'></i>"
+        if (criterion=="1") {
+        str+="<i class='bd-img'>"
+            +"<img  src='../../image/chenggong2.png' style='width:80px; height:40px;'/>"
+            +"</i>"
+      }else {
+        str+="<i class='bd-img'>"
+            +"<img  src='../../image/rengxugenjin.png' style='width:80px; height:40px;'/>"
+            +"</i>"
+      }
+        str+="<i class='icon-v-right-rg img-enter'></i>"
             +"</a></li>"
       }
       return str

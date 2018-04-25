@@ -7,6 +7,7 @@
     <title>Hello APP</title>
     <link rel="stylesheet" type="text/css" href="../../css/api.css" />
     <link rel="stylesheet" type="text/css" href="../../css/assets/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/assets/iconfont.css" />
 	<style>
 
   /*myhome*/
@@ -135,9 +136,27 @@
   .font-color3{
     color: #a7af33;
   }
+  .font-color4{
+    color: #BF3EFF;
+  }
+  .font-color5{
+    color: #551A8B;
+  }
+  .font-color6{
+    color: #7CCD7C;
+  }
   .header-mix .mix-txt {
       position:absolute;
       top:20px;
+  }
+  #qiandao1{
+    font-size: 21px;
+  }
+  #rank{
+    font-size: 22px;
+  }
+  #form{
+    font-size: 20px;
   }
 	</style>
 </head>
@@ -178,6 +197,40 @@
 
         <div class="ui-msg-box">
             <ul>
+<!-- <li onclick="util.open('')">
+  <div class="pull-left">
+    <i>
+      <span id="" class=""></span>
+    </i>
+    <b></b>
+  </div>
+  <div class="">
+    <i class=""></i>
+  </div>
+</li> -->
+<li onclick="util.open('sign','./sign.html');">
+  <div class="pull-left">
+    <i><span id="qiandao1" class="img-qiandao1 fs font-color4"></span></i>
+    <b>签到</b>
+  </div>
+  <div class="pull-right"> <i class="icon-rg-h img-enter"></i></div>
+</li>
+
+              <li onclick="util.open('rank','./rank.html');">
+                <div class="pull-left">
+                  <i><span id="rank" class="img-hangyepaiming fs font-color5"></span></i>
+                  <b>月新增客户量排名</b>
+                </div>
+                <div class="pull-right"> <i class="icon-rg-h img-enter"></i></div>
+              </li>
+              <!-- <li onclick="util.open('pass','./pass.html');">
+                <div class="pull-left">
+                  <i><span id="form" class="img-zhexiantu fs font-color6"></span></i>
+                  <b>手势密码</b>
+                </div>
+                <div class="pull-right"> <i class="icon-rg-h img-enter"></i></div>
+              </li> -->
+
               <li onclick="util.open('integral','./integral.html');">
                 <div class="pull-left">
                   <i><span class="img-coupons fs font-color2"></span></i>

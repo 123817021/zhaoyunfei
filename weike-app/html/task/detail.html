@@ -12,6 +12,13 @@
       position:absolute;
       top:20px;
   }
+  .pages-tag1{
+    font-weight: normal;
+    font-size: 1.5rem;
+    padding-top: 1.67rem;
+    padding-left: 0.833rem;
+    float: left;
+  }
   </style>
 </head>
 <body>
@@ -66,7 +73,8 @@
             </li>
         </ul>
         <div class="h15 bg-f5f"></div>
-        <h4 class="pages-tag" onclick="editPage();" style="color:red;padding-bottom:30px"><u>客户信息</u></h4>
+        <h4 class="pages-tag1" onclick="editPage();" style="color:red;padding-bottom:30px"><u>客户信息</u></h4>
+          <h4 class="pages-tag1" onclick="openform();" style="color:red;padding-bottom:30px"><u>客户存款增幅表</u></h4>
     </section>
 </div>
 
@@ -144,6 +152,19 @@
         api.openWin({
             name: 'editCus',
             url: '../addCus.html',
+            pageParam: {
+                cusObj: cusObj
+            }
+        });
+      }
+    }
+    function openform() {
+      if(!cusObj){
+        util.toast("网络异常");
+      }else{
+        api.openWin({
+            name: 'increaseform',
+            url: '../personal/increaseform.html',
             pageParam: {
                 cusObj: cusObj
             }
