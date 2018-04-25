@@ -1,0 +1,332 @@
+<!DOCTYPE HTML>
+<html class="bgGray">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/assets/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/assets/iconfont.css"/>
+	<style>
+
+  /*myhome*/
+
+  .ui-hd-user{
+      height: 15rem;
+      background: #1b82d2;
+      background-size: 100% 100%;
+      text-align: center;
+      color: #fff;
+      padding-top: 3rem;
+  }
+  .ui-hd-user i{
+      /*margin-top: 2.5rem;*/
+      display: block;
+  }
+  .ui-hd-user i img {
+      width: 5rem;
+      border-radius: 50%;
+  }
+  .ui-hd-user p {
+      font-size: 1.4rem;
+      margin-top: 0.5rem;
+      display: block;
+  }
+  .ui-hd-user span {
+      margin-top: 0.3rem;
+      display: block;
+  }
+  .ui-list-home{
+      overflow: hidden;
+      height: 6rem;
+      background: white;
+      margin-top: 10px;
+  }
+  .ui-list-home li:nth-child(1), .ui-list-home li:nth-child(2) {
+      border-right: 1px solid #dbdbdb;
+  }
+  .ui-list-home li:last-child b, .ui-list-home li:last-child span {
+      color: #64c800;
+  }
+
+  .ui-list-home li b {
+      font-size: 2rem;
+      margin-right: 0.2rem;
+  }
+  .ui-list-home li i {
+      font-size: 1.8rem;
+      margin-right: 0.2rem;
+  }
+
+  .ui-list-home li {
+      float: left;
+      text-align: center;
+      width: 50%;
+      height: 6rem;
+      padding-top: 1.3rem;
+  }
+  .ui-red{
+      color: #64c800;
+  }
+  .bgGray {
+      background: #eee;
+  }
+  body {
+      min-height: 100%;
+      height: auto;
+  }
+  .ui-msg-box{
+      overflow: hidden;
+      margin-bottom: 1rem;
+  }
+  .ui-msg-box ul{
+      margin-top: 1rem;
+  }
+  .ui-msg-box li {
+      position: relative;
+      background: #fff;
+      padding: 13px;
+      margin-bottom: 0.5rem;
+      font-size: 15px;
+  }
+  .ui-msg-box li i {
+      width: 2.5rem;
+      display: inline-block;
+      float: left;
+      margin-top: 0.8rem;
+  }
+  .ui-msg-box1{
+      overflow: hidden;
+      margin-bottom: 1rem;
+      height: 15rem;
+      text-align: center;
+      color: #000000;
+      padding-top: 3rem;
+  }
+  .ui-msg-box1 ul{
+      margin-top: 1rem;
+  }
+  .ui-msg-box1 li {
+      display: block;
+  }
+  .ui-msg-box1 li i {
+
+      width: 2.5rem;
+      display: inline-block;
+      float: left;
+      margin-top: 0.8rem;
+  }
+  .ui-msg-box1 li b {
+      display: inline-block;
+      height: 2.5rem;
+      line-height: 2.5rem;
+      margin-left: 0.2rem;
+      margin-top: 0.8rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+  }
+  .ui-msg-box1 i img {
+    width: 5rem;
+    border-radius: 50%;
+  }
+
+  img {
+      vertical-align: middle;
+  }
+  .img-responsive{
+      display: block;
+      max-width: 100%;
+      height: auto;
+  }
+  .pull-right {
+      float: right!important;
+
+  }
+  .pull-left{
+    margin-left: 1rem;
+  }
+  .pull-center{
+    text-align: center;
+  }
+  .font-red{
+    color: red;
+    font-weight: bold;
+  }
+  .ui-msg-box li b {
+      display: inline-block;
+      height: 2.5rem;
+      line-height: 2.5rem;
+      margin-left: 0.2rem;
+      margin-top: 0.8rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+  }
+  .icon-rg-h{
+      position: absolute;
+      right: 0px;
+      top: 6px;
+      color: #716f6f;
+      font-size: 16px;
+  }
+  .header-mix .mix-txt {
+      position:absolute;
+      top:20px;
+  }
+  .button li b{
+    display: inline-block;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    margin-left: 0.2rem;
+    margin-top: 0.8rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+  .correnttime{
+    text-align: center;
+  }
+  .qiandaolishi{
+    position: absolute;
+right: 6px;
+top: 20px;
+  }
+	</style>
+</head>
+<body class="bgGray">
+  <header class="header">
+    <div class="header-left">
+      <span class="header-mix" onclick="api.closeWin();">
+          <span class="mix-txt"><i class="header-icon icon-v-left js-back"> </i>签到</span>
+      </span>
+    </div>
+<div class="qiandaolishi">
+  <i onclick="util.open('signhistory','./signhistory.html');">
+    <span>签到历史</span>
+  </i>
+</div>
+
+  </header>
+ <div class="pages">
+    <section class="section">
+
+        <div class="ui-article">
+            <div class="ui-list-home">
+                <ul>
+                    <li>
+                        <p class="ui-red"><b><span id="currenttime"></b></span></p>
+                        <p><i>当前时间</i></p>
+                      </li>
+
+                      <li>
+                      <p class="ui-red"><b><span id="currentdate"></b></span></p>
+                          <p><i>当前日期</i></p>
+                      </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="ui-msg-box">
+            <ul id="">
+              <li><div class='pull-left'><b class='img-dingwei'><span id="address">正在获取地址...</span></b></div></li>
+            </ul>
+
+        </div>
+        <div class="ui-msg-box1" onclick="qiandao(this)" id="qiandao_pic">
+              <i><img id="qiandaopic" class="qiandaotu" src="../../image/weiqiandao.png" alt=""></i>
+              <li><div class='pull-center'><b><span id="qiandao">点击签到</span></b></div></li>
+        </div>
+    </section>
+</div>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript">
+  apiready = function(){
+    var state,date,time,oldtime;
+    displayTime();
+      $api.text($api.byId("currenttime"),new Date().format('hh:mm'));
+      $api.text($api.byId("currentdate"),new Date().format('MM/dd'));
+      //执行调用接口获取今天签到状态方法
+      getsignstate();
+     initData();
+  };
+//显示当前时间
+function displayTime(){
+  $api.text($api.byId("currenttime"),new Date().format('hh:mm'));
+  $api.text($api.byId("currentdate"),new Date().format('MM/dd'));
+  //1秒钟执行一次此方法
+  setTimeout(displayTime,1000);
+}
+  function initData() {
+    //调用百度接口获取经纬度
+    var bMap = api.require('bMap');
+    bMap.getLocation({
+        accuracy: '10m',
+        autoStop: true,
+        filter: 1
+    }, function(ret, err) {
+        if (ret.status) {
+            //将得到的经纬度传到getloca方法
+            getloca(ret);
+        } else {
+            alert(err.code);
+        }
+    });
+    //3秒钟获取一次地址
+    setTimeout(initData,3000);
+  }
+  /*将经纬度参数上传，获取地址address*/
+  function getloca(data){
+    var bMap1 = api.require('bMap');
+    bMap1.getNameFromCoords({
+        lon: data.lon,
+        lat: data.lat
+    },function(ret, err) {
+        if (ret.status) {
+          $api.text($api.byId('address'),ret.address);
+        }else {
+          alert(JSON.stringify(err));
+        }
+    });
+      }
+      /*点击签到标签，执行此方法*/
+      function qiandao(){
+        var imgObj = document.getElementById("qiandaopic");
+        //判断签到状态
+        if (state=="0") {
+            getsignstate();
+            imgObj.src="../../image/qiandao.png";
+            $api.text($api.byId("qiandao"), '已签到');
+            util.toast("签到成功"+'\n'+time);
+            //保存签到时间
+            oldtime=time;
+            //更新签到状态
+            changesignstate();
+          }else {util.toast("您已经签到过了"+'\n'+"签到时间为"+oldtime);}
+        }
+        /*用接口获取今天签到状态方法*/
+        function getsignstate(){
+          //获取当前日期
+           date = new Date().format('yyyy/MM/dd');
+           time = new Date().format('hh:mm');
+           //还要获取用户id
+          // util.userId user.userId
+          //上传当前时间日期，用户id，签到地址获得签到状态更改qiandaopic
+          state='0';
+          var imgObj1 = document.getElementById("qiandaopic");
+          if (state=="0") {
+              imgObj1.src="../../image/weiqiandao.png";
+              $api.text($api.byId("qiandao"), '未签到');
+            }else{
+              imgObj1.src="../../image/qiandao.png";
+            $api.text($api.byId("qiandao"), '已签到');}
+        }
+        /*更新签到状态*/
+        function changesignstate(){
+        state='1';
+        }
+</script>
+</html>

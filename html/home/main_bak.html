@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html class="bgGray">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/assets/main.css" />
+	<style>
+
+  /*myhome*/
+  .pages{
+    padding-top:0px;
+  }
+  .ui-hd-user{
+      height: 15rem;
+      background: #1b82d2;
+      background-size: 100% 100%;
+      text-align: center;
+      color: #fff;
+      padding-top: 3rem;
+  }
+  .ui-hd-user i{
+      /*margin-top: 2.5rem;*/
+      display: block;
+  }
+  .ui-hd-user i img {
+      width: 5rem;
+      border-radius: 50%;
+  }
+  .ui-hd-user p {
+      font-size: 1.4rem;
+      margin-top: 0.5rem;
+      display: block;
+  }
+  .ui-hd-user span {
+      margin-top: 0.3rem;
+      display: block;
+  }
+  .ui-list-home{
+      overflow: hidden;
+      height: 6rem;
+      background: white;
+  }
+  .ui-list-home li:nth-child(1), .ui-list-home li:nth-child(2) {
+      border-right: 1px solid #dbdbdb;
+  }
+  .ui-list-home li:last-child b, .ui-list-home li:last-child span {
+      color: #64c800;
+  }
+
+  .ui-list-home li b {
+      font-size: 2rem;
+      margin-right: 0.2rem;
+  }
+  .ui-list-home li {
+      float: left;
+      text-align: center;
+      width: 33.33%;
+      height: 6rem;
+      padding-top: 1.3rem;
+  }
+  .ui-red{
+      color: #d7001d;
+  }
+  .bgGray {
+      background: #eee;
+  }
+  body {
+      min-height: 100%;
+      height: auto;
+  }
+  .ui-msg-box{
+      overflow: hidden;
+      margin-bottom: 1rem;
+  }
+  .ui-msg-box ul{
+      margin-top: 1rem;
+  }
+  .ui-msg-box li {
+      position: relative;
+      background: #fff;
+      height: 4rem;
+      padding-right: 15px;
+      padding-left: 15px;
+      margin-bottom: 0.5rem;
+  }
+  .ui-msg-box li i {
+      width: 2.5rem;
+      display: inline-block;
+      float: left;
+      margin-top: 0.8rem;
+  }
+
+  .ui-msg-box li:nth-child(2), .ui-msg-box li:nth-child(4) {
+      margin-bottom: 0;
+      border-bottom: 1px solid #dbdbdb;
+  }
+  img {
+      vertical-align: middle;
+  }
+  .img-responsive{
+      display: block;
+      max-width: 100%;
+      height: auto;
+  }
+  .pull-right {
+      float: right!important;
+
+  }
+  .ui-msg-box li b {
+      display: inline-block;
+      height: 2.5rem;
+      line-height: 2.5rem;
+      margin-left: 0.2rem;
+      margin-top: 0.8rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+  }
+  .icon-rg-h{
+      position: absolute;
+      right: 0px;
+      top: 6px;
+      color: #716f6f;
+      font-size: 16px;
+  }
+
+	</style>
+</head>
+<body class="bgGray">
+<div class="pages">
+    
+    <div id="main" style="width: 600px;height:400px;"></div>
+</div>
+
+</body>
+
+<script type="text/javascript" src="../../script/echarts.simple.min.js"></script>
+<script type="text/javascript">
+  
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: 'ECharts 入门示例'
+            },
+            tooltip: {},
+            legend: {
+                data:['销量']
+            },
+            xAxis: {
+                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+            },
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: [5, 20, 36, 10, 10, 20]
+            }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    
+
+</script>
+</html>

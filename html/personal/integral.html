@@ -1,0 +1,216 @@
+<!DOCTYPE HTML>
+<html class="bgGray">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/assets/main.css" />
+	<style>
+
+  /*myhome*/
+
+  .ui-hd-user{
+      height: 15rem;
+      background: #1b82d2;
+      background-size: 100% 100%;
+      text-align: center;
+      color: #fff;
+      padding-top: 3rem;
+  }
+  .ui-hd-user i{
+      /*margin-top: 2.5rem;*/
+      display: block;
+  }
+  .ui-hd-user i img {
+      width: 5rem;
+      border-radius: 50%;
+  }
+  .ui-hd-user p {
+      font-size: 1.4rem;
+      margin-top: 0.5rem;
+      display: block;
+  }
+  .ui-hd-user span {
+      margin-top: 0.3rem;
+      display: block;
+  }
+  .ui-list-home{
+      overflow: hidden;
+      height: 6rem;
+      background: white;
+      margin-top: 10px;
+  }
+  .ui-list-home li:nth-child(1), .ui-list-home li:nth-child(2) {
+      border-right: 1px solid #dbdbdb;
+  }
+  .ui-list-home li:last-child b, .ui-list-home li:last-child span {
+      color: #64c800;
+  }
+
+  .ui-list-home li b {
+      font-size: 2rem;
+      margin-right: 0.2rem;
+  }
+  .ui-list-home li {
+      float: left;
+      text-align: center;
+      width: 33.33%;
+      height: 6rem;
+      padding-top: 1.3rem;
+  }
+  .ui-red{
+      color: #d7001d;
+  }
+  .bgGray {
+      background: #eee;
+  }
+  body {
+      min-height: 100%;
+      height: auto;
+  }
+  .ui-msg-box{
+      overflow: hidden;
+      margin-bottom: 1rem;
+  }
+  .ui-msg-box ul{
+      margin-top: 1rem;
+  }
+  .ui-msg-box li {
+      position: relative;
+      background: #fff;
+      padding: 13px;
+      margin-bottom: 0.5rem;
+      font-size: 15px;
+  }
+  .ui-msg-box li i {
+      width: 2.5rem;
+      display: inline-block;
+      float: left;
+      margin-top: 0.8rem;
+  }
+
+
+  img {
+      vertical-align: middle;
+  }
+  .img-responsive{
+      display: block;
+      max-width: 100%;
+      height: auto;
+  }
+  .pull-right {
+      float: right!important;
+
+  }
+  .pull-center{
+    text-align: center;
+  }
+  .font-red{
+    color: red;
+    font-weight: bold;
+  }
+  .ui-msg-box li b {
+      display: inline-block;
+      height: 2.5rem;
+      line-height: 2.5rem;
+      margin-left: 0.2rem;
+      margin-top: 0.8rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+  }
+  .icon-rg-h{
+      position: absolute;
+      right: 0px;
+      top: 6px;
+      color: #716f6f;
+      font-size: 16px;
+  }
+  .header-mix .mix-txt {
+      position:absolute;
+      top:20px;
+  }
+	</style>
+</head>
+<body class="bgGray">
+  <header class="header">
+    <div class="header-left">
+      <span class="header-mix" onclick="api.closeWin();">
+          <span class="mix-txt"><i class="header-icon icon-v-left js-back"> </i>个人积分</span>
+      </span>
+    </div>
+  </header>
+<div class="pages">
+    <section class="section">
+
+        <div class="ui-article">
+            <div class="ui-list-home">
+                <ul>
+                    <li>
+                        <p class="ui-red"><b id="thisIntegral">0</b></p>
+                        <p>当前积分</p></li>
+                    <li>
+                        <p class="ui-red"><b id="monthIntegral">0</b></p>
+                        <p>本月新增积分</p>
+                      </li>
+                      <li>
+                          <p class="ui-red"><b id="todayIntegral">0</b></p>
+                          <p>今日新增积分</p>
+                      </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="ui-msg-box">
+            <ul id="dataListTable">
+              <li><div class='pull-center'><b>没有数据</b></div></li>
+            </ul>
+
+        </div>
+    </section>
+</div>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript">
+  apiready = function(){
+    $api.fixStatusBar( $api.dom('header') );
+    initData();
+  };
+
+  function initData() {
+    const userStr = util.getPrefs(cfg.userCacheKEY)
+    if(userStr){
+      const user = JSON.parse(userStr);
+      userId = user.userId;
+      util.get("CusIntegral/getSelfIntegralPage",
+        {userId:userId},function (json) {
+          var self = json.data
+          $api.text($api.byId("thisIntegral"),self.thisIntegral);
+          $api.text($api.byId("monthIntegral"),self.monthIntegral);
+          $api.text($api.byId("todayIntegral"),self.todayIntegral);
+          var dataList = self.data;
+          if(dataList.length > 0){
+            var liStr = "";
+            for (var i = 0; i < dataList.length; i++) {
+              var d = dataList[i];
+              liStr+="<li>"
+                +"<div class='pull-left'>【"+new Date(d.createTime).format('yyyy-MM-dd')+"】【"+d.cusName+"】</div>"
+                +"<div class='pull-left'>"+d.integralType+"，新增"+d.addIntegral/10+"分</div></li>";
+            }
+            $api.html($api.byId("dataListTable"),liStr);
+            api.parseTapmode();
+          }
+      });
+    }
+
+  }
+
+
+
+</script>
+</html>

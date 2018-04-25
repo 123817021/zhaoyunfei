@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>底部导航</title>
+    <link rel="stylesheet" type="text/css" href="./css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/assets/main.css">
+    <style>
+        header{ background-color: #f2f2f2; }
+        header ul li { height: 50px; line-height: 50px; text-align: center; display: none; color: #323237; position: relative;font-size: 18px;  }
+        header ul li.active{ display: block; }
+
+
+        .icon-add-style{
+          position:absolute;bottom:-3px;right:15px;
+        }
+        .app-name{
+          font-size: 20px;
+          position:absolute;bottom:10px;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap" class="flex-wrap flex-vertical">
+  <header class="header">
+      <div class="header-left">
+          <span class="header-mix">
+              <span class="mix-txt app-name">维客</span>
+          </span>
+      </div>
+      <div class="header-right" id="rightBar">
+        <span class='icon-add-style' onclick='personal();'><img src="image/self.png" style="width: 20px;"/></span>
+      </div>
+  </header>
+    <div id="main" class="flex-con">
+
+    </div>
+    <footer class="fixed-bottom">
+        <ul class="tool-bar">
+          <!-- icon-home -->
+          <li id="toolBtn0" class="active on" onclick="switchBtn(0,false);">
+              <i iImg="img-homepage" class="tool-icon img-homepage_fill fs35"></i>
+              <span class="tool-tit">主页</span>
+          </li>
+            <li id="toolBtn1" class="" onclick="switchBtn(1,false);">
+                <i iImg="img-group" class="tool-icon img-group fs35"></i>
+                <span class="tool-tit">客户管理</span>
+            </li>
+            <li id="toolBtn2" class="" onclick="switchBtn(2,false);">
+                <i iImg="img-time" class="tool-icon img-time fs35"></i>
+                <span class="tool-tit">待办任务</span>
+            </li>
+            <li id="toolBtn3" class="" onclick="switchBtn(3,false);">
+                <i iImg="img-addition" class="tool-icon img-addition fs35"></i>
+                <span class="tool-tit">新增客户</span>
+            </li>
+        </ul>
+    </footer>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="script/api.js"></script>
+<script type="text/javascript" src="script/config.js"></script>
+<script type="text/javascript" src="script/util.js"></script>
+<script type="text/javascript">
+  var frames = [{
+      name: 'home',
+      url: './html/home/main.html',
+      bgColor : 'rgba(0,0,0,.2)',
+      bounces:true
+    },
+    {
+      name: 'tuijian',
+      url: './html/tuijian/main.html',
+      bgColor : 'rgba(0,0,0,.2)',
+      bounces:true
+    },
+    {
+        name: 'task',
+        url: './html/task/main.html',
+        bgColor : 'rgba(0,0,0,.2)',
+        bounces:true
+    },
+    {
+        name: 'addCus',
+        url: './html/addCus.html',
+        bgColor : 'rgba(0,0,0,.2)',
+        bounces:true
+    }];
+    apiready = function () {
+        $api.fixStatusBar( $api.dom('header') );
+
+        //检查是否登录
+        util.checkLogin();
+
+        api.setFullScreen({
+            fullScreen: true
+        });
+        funIniGroup();
+        // 注意：不可以将本监听放到
+        // home/main，task/main，tuijian/main
+        // 中
+        util.backHomeListener();
+    }
+
+    function funIniGroup(){
+        var header = $api.dom('header');
+        var footer = $api.dom('footer');
+        var main = $api.byId('main');
+        var headerPos = $api.offset(header);
+        var footerPos = $api.offset(footer);
+        var mainPos = $api.offset(main);
+        api.openFrameGroup({
+            name: 'group',
+            scrollEnabled: false,
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: api.winWidth,
+                h: mainPos.h - headerPos.h - footerPos.h
+            },
+            index: 0,
+            frames: frames
+        }, function (ret, err) {
+        });
+        // setRightBar(0)
+    }
+
+    // 随意切换按钮
+    function switchBtn(tag,isLoad) {
+      if(isLoad != true) isLoad = false;
+      util.checkLogin();
+      // 删除选中
+      var footerBtnList = $api.dom('.tool-bar li.active');
+      $api.removeCls(footerBtnList,'active');
+      $api.removeCls(footerBtnList,'on');
+      // 删除图标选中
+      var img = $api.dom(footerBtnList,"i");
+      var unSelectCls = $api.attr(img,"iImg");
+      $api.removeCls(img,unSelectCls+'_fill');
+      if(!$api.hasCls(img, unSelectCls)){
+        $api.addCls(img,unSelectCls);
+      }
+
+
+
+      var clickBtn = $api.byId('toolBtn'+tag);
+      $api.addCls(clickBtn, 'active');
+      $api.addCls(clickBtn, 'on');
+      var img2 = $api.dom(clickBtn,"i");
+      var unSelectCls2 = $api.attr(img2,"iImg");
+      if(!$api.hasCls(img2,unSelectCls2+'_fill')){
+        $api.addCls(img2,unSelectCls2+'_fill');
+      }
+      $api.removeCls(img2,unSelectCls2);
+      api.setFrameGroupIndex({
+          name: 'group',
+          index: tag,
+          reload: isLoad
+      });
+      // setRightBar(tag);
+    }
+    // function setRightBar(tag) {
+    //   var rightBar = $api.byId('rightBar');
+    //   var str = "";
+    //   if (tag == 0) {
+    //     // str = "<span class='icon-add icon-add-style' onclick='tempAddCus();'></span>"
+    //   }else if(tag == 3){
+    //     str = ""
+    //   }
+    //   $api.html(rightBar, str);
+    // }
+
+    function personal(){
+      api.openWin({
+          name: 'personal',
+          url: './html/personal/main.html'
+      });
+    }
+</script>

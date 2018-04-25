@@ -1,0 +1,362 @@
+<!DOCTYPE HTML>
+<html class="bgGray">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/assets/main.css" />
+	<style>
+
+  /*myhome*/
+  .pages{
+    padding-top:0px;
+  }
+  .ui-hd-user{
+      height: 15rem;
+      background: #1b82d2;
+      background-size: 100% 100%;
+      text-align: center;
+      color: #fff;
+      padding-top: 3rem;
+  }
+  .ui-hd-user i{
+      /*margin-top: 2.5rem;*/
+      display: block;
+  }
+  .ui-hd-user i img {
+      width: 5rem;
+      border-radius: 50%;
+  }
+  .ui-hd-user p {
+      font-size: 1.4rem;
+      margin-top: 0.5rem;
+      display: block;
+  }
+  .ui-hd-user span {
+      margin-top: 0.3rem;
+      display: block;
+  }
+  .ui-list-home{
+      overflow: hidden;
+      height: 8rem;
+      background: white;
+      border-bottom: 1px solid #dbdbdb;
+      padding: 6px;
+  }
+  .ui-list-home li:nth-child(1), .ui-list-home li:nth-child(2) {
+      border-right: 1px solid #dbdbdb;
+  }
+  .ui-list-home li:last-child b, .ui-list-home li:last-child span {
+      color: #64c800;
+  }
+
+  .ui-list-home li b {
+      font-size: 2rem;
+      margin-right: 0.2rem;
+  }
+  .ui-list-home li {
+      float: left;
+      text-align: center;
+      width: 33.33%;
+      height: 6rem;
+      padding-top: 1.3rem;
+  }
+  .ui-red{
+      color: #d7001d;
+  }
+  .bgGray {
+      background: #eee;
+  }
+  body {
+      min-height: 100%;
+      height: auto;
+  }
+  .ui-msg-box{
+      overflow: hidden;
+      margin-bottom: 1rem;
+  }
+  .ui-msg-box ul{
+      margin-top: 1rem;
+  }
+  .ui-msg-box li {
+      position: relative;
+      background: #fff;
+      height: 4rem;
+      padding-right: 15px;
+      padding-left: 15px;
+      margin-bottom: 0.5rem;
+  }
+  .ui-msg-box li i {
+      width: 2.5rem;
+      display: inline-block;
+      float: left;
+      margin-top: 0.8rem;
+  }
+
+  .ui-msg-box li:nth-child(2), .ui-msg-box li:nth-child(4) {
+      margin-bottom: 0;
+      border-bottom: 1px solid #dbdbdb;
+  }
+  img {
+      vertical-align: middle;
+  }
+  .img-responsive{
+      display: block;
+      max-width: 100%;
+      height: auto;
+  }
+  .pull-right {
+      float: right!important;
+
+  }
+  .ui-msg-box li b {
+      display: inline-block;
+      height: 2.5rem;
+      line-height: 2.5rem;
+      margin-left: 0.2rem;
+      margin-top: 0.8rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+  }
+  .icon-rg-h{
+      position: absolute;
+      right: 0px;
+      top: 6px;
+      color: #716f6f;
+      font-size: 16px;
+  }
+  #echart{
+    width:500px;
+    height:300px;
+    margin-top: 20px;
+    padding-bottom: 0px;
+  }
+
+
+	</style>
+</head>
+<body class="bgGray" style="background-color:white;">
+<div class="pages">
+    <section class="section">
+        <div class="ui-hd-user">
+            <i>
+                <img src="../../image/logo.png" alt="">
+            </i>
+            <p id="realName"></p>
+            <span id="userLoginname"></span>
+        </div>
+        <div class="ui-article">
+            <div class="ui-list-home">
+                <ul>
+                  <li>
+                      <p class="ui-red"><b id="totalCusNum">0</b><span>位</span></p>
+                      <p>客户数</p></li>
+
+                    <li>
+                        <p class="ui-red"><b id="otherCusNum">0</b><span>位</span></p>
+                        <p>未沟通</p></li>
+                    <li>
+                        <p class="ui-red"><b id="endCusNum">0</b><span>位</span></p>
+                        <p>已沟通</p></li>
+
+                </ul>
+            </div>
+        </div>
+
+
+    </section>
+    <div id="echart"></div>
+    <div class="div-list">
+      <div class="title">
+        <span>排名</span>
+        <span>姓名</span>
+        <span>业务量</span>
+      </div>
+      <div id="div-content"></div>
+    </div>
+</div>
+
+</body>
+<style>
+  .div-list{
+    margin-top: -20px;
+  }
+  .div-list .content {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 15px;
+    padding: 5px;
+  }
+  .div-list .title{
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 17px;
+    font-weight: bold;
+    padding: 5px;
+  }
+  .div-list span{
+    width: 30%;
+  }
+</style>
+
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/echarts.common.min.js"></script>
+<script type="text/javascript">
+  apiready = function(){
+    $api.fixStatusBar( $api.dom('header') );
+    initData();
+    //下拉刷新
+    api.setRefreshHeaderInfo({
+        visible: true,
+        bgColor: 'rgba(0,0,0,0)',
+        textColor: '#666',
+        textDown: '下拉刷新',
+        textUp: '释放刷新'
+    }, function(ret, err){
+      initData();
+      api.refreshHeaderLoadDone();
+    });
+    //全局初始化
+    util.globalInit();
+  };
+  function initData() {
+    initData(true);
+  }
+  function initData(isShow) {
+    var realName = "",userLoginname="";
+    var userOrgId = "",userId="";
+    const userStr = util.getPrefs(cfg.userCacheKEY)
+    if(userStr){
+      const user = JSON.parse(userStr);
+      realName = user.userName;
+      userLoginname = user.userLoginname;
+      userOrgId = user.orgId;
+      userId = user.userId;
+    }
+    $api.html($api.byId("realName"), realName);
+
+    util.get("/SysOrg/"+userOrgId, {}, function (json) {
+      $api.html($api.byId("userLoginname"), json.data.orgName);
+    });
+    initTu(userId,isShow);
+    initCus(userOrgId,isShow);
+  }
+
+  function initCus(userOrgId,isShow){
+
+    util.get("CusDetail/count?t="+new Date(),{},function (json) {
+      $api.byId('totalCusNum').innerHTML = json.data.totalCusCount;
+      $api.byId('otherCusNum').innerHTML = json.data.otherCusCount;
+      $api.byId('endCusNum').innerHTML = json.data.endCusCount;
+    });
+
+    util.post("Statistics/statisUserCusNumByOrgId",{orgId: userOrgId},function (json) {
+      if (json.code == '200'){
+        var data = json.data
+        var optHtml = "";
+        if(data){
+          for (var i = 0; i < data.length; i++) {
+            var one = data[i];
+            var j = i + 1;
+            var htm = j;
+            if(j == 1) {
+              htm = "<img src='../../image/lev01.png' style='width:30px;'/>"
+            } else if(j == 2) {
+              htm = "<img src='../../image/lev02.png' style='width:30px;'/>"
+            } else if(j == 3) {
+              htm = "<img src='../../image/lev03.png' style='width:30px;'/>"
+            }
+            optHtml += "<div class='content'><span>"+htm+"</span><span>"+one.userName+"</span><span>"+one.cusNum+"</span></div>";
+          }
+        }
+        $api.html($api.byId("div-content"), optHtml);
+        api.parseTapmode();
+      } else {
+        if(isShow){
+          util.toast(json.msg);
+        }
+      }
+    });
+  }
+
+  function initTu(userId,isShow){
+    util.post("Statistics/statisUserLogByUserId",{userId: userId},function (json) {
+      if (json.code == '200'){
+        var data = json.data
+        var xAxis = [], series = [];
+        for (var i = 0; i < data.length; i++) {
+          xAxis.push(data[i].date);
+          series.push(data[i].num);
+        }
+        initChart(xAxis, series);
+      } else {
+        if(isShow){
+          util.toast(json.msg);
+        }
+      }
+    });
+  }
+
+
+  function initChart(xAxisArr, seriesArr){
+    //设置图表宽度
+    $api.css($api.byId('echart'), 'width:'+api.winWidth+'px;');
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('echart'));
+    // 指定图表的配置项和数据
+    var option = {
+        title : {
+            text: '营销客户数',
+            subtext: '每日沟通数量统计',
+            x: 'center'
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['数量']
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: true}
+            }
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                data : xAxisArr
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                axisLabel : {
+                    formatter: '{value}'
+                }
+            }
+        ],
+        series : [
+            {
+                name:'沟通数量',
+                type:'line',
+                data:seriesArr
+            }
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+  }
+
+
+</script>
+</html>
