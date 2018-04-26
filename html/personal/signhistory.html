@@ -55,8 +55,15 @@
     var math=new Date().format('MM');
     $api.text($api.byId("ndate"),year+"年"+math+"月");
     //执行获取签到表
+    getsigndate();
     getqiandaobiao();
-    // getsigndate();
+  }
+  function getsigndate(){
+    var math1=new Date().format('yyyy/MM');
+    //获取已经签到的日期
+    // util.get("",{math:math1},function(ret){
+    //
+    // })
   }
   function getqiandaobiao(){
     //定义这个模块

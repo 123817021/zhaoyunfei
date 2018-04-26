@@ -146,10 +146,9 @@
           criterion="1"
           //随便写的判断
         }else if(bean.cusPhone=="") {
-          alert("666");
-          criterion="2"
-        }else {
           criterion="3"
+        }else {
+          criterion="2"
         }
         str+="<li class='line-item' onclick=\"detailPage('"+bean.cusId+"');\">"
             +"<a>"
@@ -163,6 +162,7 @@
         str+="<h3 class='bd-tt'>"+bean.cusName+" </h3>"
             +"<p class='bd-txt'>"+bean.cusPhone+"</p>"
             +"</div>"
+            //显示状态戳
         if (criterion=="1") {
         str+="<i class='bd-img'>"
             +"<img  src='../../image/chenggong2.png' style='width:80px; height:40px;'/>"

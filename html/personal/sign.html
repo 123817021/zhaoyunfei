@@ -245,13 +245,13 @@ top: 20px;
 <script type="text/javascript" src="../../script/util.js"></script>
 <script type="text/javascript">
   apiready = function(){
-    var state,date,time,oldtime;
+    var state,date,time,oldtime,address;
     displayTime();
       $api.text($api.byId("currenttime"),new Date().format('hh:mm'));
       $api.text($api.byId("currentdate"),new Date().format('MM/dd'));
       //执行调用接口获取今天签到状态方法
-      getsignstate();
      initData();
+     getsignstate();
   };
 //显示当前时间
 function displayTime(){
@@ -287,6 +287,7 @@ function displayTime(){
     },function(ret, err) {
         if (ret.status) {
           $api.text($api.byId('address'),ret.address);
+          address = ret.address;
         }else {
           alert(JSON.stringify(err));
         }
@@ -295,6 +296,20 @@ function displayTime(){
       /*点击签到标签，执行此方法*/
       function qiandao(){
         var imgObj = document.getElementById("qiandaopic");
+        //获取当前日期
+         date = new Date().format('yyyy/MM/dd');
+         time = new Date().format('hh:mm');
+         //点击签到方法更新签到状态
+        //  date=date+' '+time;
+        //  alert(date);
+        //  alert(address);
+        //  var params = {
+        //    date:date,
+        //    address:address
+        //  };
+        // util.get("",params,function(ret){
+        //
+        // })
         //判断签到状态
         if (state=="0") {
             getsignstate();
@@ -309,9 +324,10 @@ function displayTime(){
         }
         /*用接口获取今天签到状态方法*/
         function getsignstate(){
-          //获取当前日期
-           date = new Date().format('yyyy/MM/dd');
-           time = new Date().format('hh:mm');
+          //获取今天签到状态的请求
+          //  util.get("",function(ret){
+          //
+          //  })
            //还要获取用户id
           // util.userId user.userId
           //上传当前时间日期，用户id，签到地址获得签到状态更改qiandaopic
